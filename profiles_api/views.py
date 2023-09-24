@@ -3,7 +3,7 @@ from rest_framework.response import Response
 from rest_framework import status
 from rest_framework import viewsets
 
-from profiles_api import serializers
+from profiles_api import models,serializers
 class HelloApiView(APIView):
     """Test API View"""
     serializer_class = serializers.HelloSerializer
@@ -78,10 +78,16 @@ class HelloViewSet (viewsets.ViewSet):
         """Handle updating an object"""
         return Response({'http_method':'PUT'})
     
-    def partial_update (self,requestr,pk=None):
+    def partial_update (self,request,pk=None):
         """Update a part of an object"""
         return Response({'http_method':'PATCH'})
     
     def destroy(self,request,pk=None):
         """Handle removing an object"""
         return Response({'http_method':'DELETE'})
+    
+
+class UserProfileViewSet(viewsets.ModelViewSet):
+    """Handle creating, creating and updating profiles"""
+    serializer_class = serializers.UserProfileSerializer
+    queryset = models.UserProfile.objects.all()
